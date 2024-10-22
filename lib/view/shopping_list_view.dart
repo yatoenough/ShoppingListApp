@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list/data/dummy_items.dart';
+import 'package:shopping_list/widgets/shopping_list_item.dart';
 
 class ShoppingListView extends StatelessWidget {
   const ShoppingListView({super.key});
@@ -9,8 +11,8 @@ class ShoppingListView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Your shopping list"),
       ),
-      body: const Column(
-        children: [],
+      body: Column(
+        children: [for (final item in items) ShoppingListItem(item: item)],
       ),
     );
   }
