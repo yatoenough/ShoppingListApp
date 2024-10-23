@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:shopping_list/view/shopping_list_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Groceries',
+      title: 'Shopping List',
       theme: ThemeData.dark().copyWith(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 147, 229, 250),
