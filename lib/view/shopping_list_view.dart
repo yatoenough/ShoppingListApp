@@ -34,8 +34,11 @@ class _ShoppingListViewState extends State<ShoppingListView> {
           ),
         ],
       ),
-      body: Column(
-        children: [for (final item in items) ShoppingListItem(item: item)],
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) => ShoppingListItem(
+          item: items[index],
+        ),
       ),
     );
   }
