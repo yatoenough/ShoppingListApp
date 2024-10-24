@@ -47,21 +47,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
           ? ListView.builder(
               itemCount: _items.length,
               itemBuilder: (context, index) => Dismissible(
-                key: ValueKey(_items[index]),
-                direction: DismissDirection.endToStart,
-                background: Container(
-                  padding: const EdgeInsets.only(right: 10),
-                  color: Colors.red,
-                  child: const Align(
-                    alignment: Alignment.centerRight,
-                    child: Column(
-                      children: [
-                        Icon(Icons.delete),
-                        Text("Delete"),
-                      ],
-                    ),
-                  ),
-                ),
+                key: ValueKey(_items[index].id),
                 onDismissed: (direction) {
                   setState(() {
                     _items.remove(_items[index]);
