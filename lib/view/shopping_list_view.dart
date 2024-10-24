@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list/data/dummy_items.dart';
+import 'package:shopping_list/models/item.dart';
 import 'package:shopping_list/view/new_item_view.dart';
 import 'package:shopping_list/widgets/shopping_list_item.dart';
 
@@ -11,13 +11,22 @@ class ShoppingListView extends StatefulWidget {
 }
 
 class _ShoppingListViewState extends State<ShoppingListView> {
-  void _addItem() {
-    Navigator.push(
+  final List<Item> _items = [];
+
+  void _addItem() async {
+    final newItem = await Navigator.push<Item>(
       context,
       MaterialPageRoute(
         builder: (context) => const NewItemView(),
       ),
     );
+
+    if (newItem == null) {
+      return;
+    }
+    setState(() {
+      _items.add(newItem);
+    });
   }
 
   @override
@@ -35,9 +44,9 @@ class _ShoppingListViewState extends State<ShoppingListView> {
         ],
       ),
       body: ListView.builder(
-        itemCount: items.length,
+        itemCount: _items.length,
         itemBuilder: (context, index) => ShoppingListItem(
-          item: items[index],
+          item: _items[index],
         ),
       ),
     );
