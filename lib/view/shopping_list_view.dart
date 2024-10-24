@@ -43,12 +43,41 @@ class _ShoppingListViewState extends State<ShoppingListView> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: _items.length,
-        itemBuilder: (context, index) => ShoppingListItem(
-          item: _items[index],
-        ),
-      ),
+      body: _items.isNotEmpty
+          ? ListView.builder(
+              itemCount: _items.length,
+              itemBuilder: (context, index) => Dismissible(
+                key: ValueKey(_items[index]),
+                direction: DismissDirection.endToStart,
+                background: Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  color: Colors.red,
+                  child: const Align(
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      children: [
+                        Icon(Icons.delete),
+                        Text("Delete"),
+                      ],
+                    ),
+                  ),
+                ),
+                onDismissed: (direction) {
+                  setState(() {
+                    _items.remove(_items[index]);
+                  });
+                },
+                child: ShoppingListItem(
+                  item: _items[index],
+                ),
+              ),
+            )
+          : Center(
+              child: Text(
+                "There is no items yet!",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
     );
   }
 }
