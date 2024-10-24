@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/data/dummy_categories.dart';
+import 'package:shopping_list/models/category.dart';
 
 class NewItemView extends StatefulWidget {
   const NewItemView({super.key});
@@ -10,9 +11,14 @@ class NewItemView extends StatefulWidget {
 
 class _NewItemViewState extends State<NewItemView> {
   final _formKey = GlobalKey<FormState>();
+  var _enteredName = '';
+  var _enteredQuantity = 1;
+  var _selectedCategory = categories[Categories.vegetables]!;
 
   void _saveItem() {
-    _formKey.currentState!.validate();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+    }
   }
 
   @override
@@ -41,6 +47,9 @@ class _NewItemViewState extends State<NewItemView> {
                   }
                   return null;
                 },
+                onSaved: (newValue) {
+                  _enteredName = newValue!;
+                },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -61,11 +70,15 @@ class _NewItemViewState extends State<NewItemView> {
                         }
                         return null;
                       },
+                      onSaved: (newValue) {
+                        _enteredQuantity = int.parse(newValue!);
+                      },
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: DropdownButtonFormField(
+                      value: _selectedCategory,
                       items: [
                         for (final category in categories.entries)
                           DropdownMenuItem(
@@ -86,7 +99,11 @@ class _NewItemViewState extends State<NewItemView> {
                             ),
                           ),
                       ],
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCategory = value!;
+                        });
+                      },
                     ),
                   )
                 ],
